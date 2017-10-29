@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class CustomUserDetailsManager extends JdbcUserDetailsManager {
-// k‰ytet‰‰n tietokannan muokkaamiseen...
+// tietokannan muokkaamiseen...
 
     private final Logger log = Logger.getLogger(CustomUserDetailsManager.class);
     private static final String SQL_ALL_USERS = "SELECT users.*, auth.authority FROM users, user_authorities AS auth WHERE users.id = auth.users_id";

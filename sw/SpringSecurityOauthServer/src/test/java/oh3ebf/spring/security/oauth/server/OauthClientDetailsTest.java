@@ -1,3 +1,12 @@
+/**
+ * Software: SpringOauth2Server
+ * Module: OauthClientDetailsTest class
+ * Version: 0.1
+ * Licence: GPL2
+ * Owner: Kim Kristo
+ * Date creation : 1.2.2017
+ */
+
 package oh3ebf.spring.security.oauth.server;
 
 import java.util.Collection;
