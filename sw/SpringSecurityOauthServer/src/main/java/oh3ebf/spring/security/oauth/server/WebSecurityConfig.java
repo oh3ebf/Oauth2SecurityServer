@@ -9,7 +9,6 @@
 
 package oh3ebf.spring.security.oauth.server;
 
-
 import oh3ebf.spring.security.oauth.server.repository.CustomUserDetailsManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +32,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     AuthenticationProvider authenticationProvider;
 
     /**
-     * Function configures user authentication 
-     * 
-     * @param auth
-     * @throws Exception
+     * Function configures user authentication
+     *
+     * @param auth AuthenticationManagerBuilder
+     * @throws Exception on error
      */
     @Autowired
     public void globalUserDetails(final AuthenticationManagerBuilder auth) throws Exception {
@@ -48,8 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * Function configures JDBC user details source
-     * 
-     * @return
+     *
+     * @return JdbcUserDetailsManager
      */
     @Bean
     public JdbcUserDetailsManager userDetailsManager() {
@@ -61,7 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      *
-     * @return @throws Exception
+     * @return AuthenticationManager
+     * @throws Exception on error
      */
     @Override
     @Bean
@@ -72,69 +72,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Function configures web security features
      *
-     * @param http
-     * @throws Exception
+     * @param http HttpSecurity to configure
+     * @throws Exception on error
      */
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         log.info("Configure web security...");
-        /*
-        http.authorizeRequests().antMatchers("/**").authenticated()
-                .and().httpBasic().realmName("OAuth Server");
-         */
 
- /*
-        http.csrf().disable();
-        
-        http.authorizeRequests()
-                .antMatchers("/oauth/token").permitAll()
-                .antMatchers("/login")
-                .permitAll()
+        http.addFilterAfter(exceptionTranslationFilter(), ExceptionTranslationFilter.class);
+
+        http.csrf().disable()                
+                .authorizeRequests()
+                .antMatchers("/login").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
                 .permitAll();
-         */
- /*
-        http
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http
-                .csrf().disable()
-                .anonymous().disable()
-                .authorizeRequests()
-                .antMatchers("/oauth/token").permitAll();
-         */
-        http.addFilterAfter(exceptionTranslationFilter(), ExceptionTranslationFilter.class);
-
-        http.csrf().disable()
-                .authorizeRequests()
-                //.antMatchers("/users/**")
-                //.permitAll()
-                //.antMatchers("/groups/**")
-                //.permitAll()
-                .antMatchers("/login")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-        .and()
-                .formLogin()
-                .permitAll()
-                ;
     }
 
     /**
      * Function returns new instance of REST exception translation filter
-     * 
+     *
      * @return new exception translation filter
      */
     @Bean
     public static ExceptionTranslationFilter exceptionTranslationFilter() {
         RestExceptionTranslationFilter exceptionTranslationFilter = new RestExceptionTranslationFilter(new RestAuthenticationEntryPoint());
-        //RestAccessDeniedHandler accessDeniedHandlerImpl = new RestAccessDeniedHandler();
-        //exceptionTranslationFilter.setAccessDeniedHandler(accessDeniedHandlerImpl);
+
         exceptionTranslationFilter.afterPropertiesSet();
         return exceptionTranslationFilter;
     }

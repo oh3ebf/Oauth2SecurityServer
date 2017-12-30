@@ -29,7 +29,7 @@ public class AuthorizationServerApplication extends SpringBootServletInitializer
     /**
      * Function configures CORS allowed from all addresses
      * 
-     * @return 
+     * @return CORS configuration
      */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)

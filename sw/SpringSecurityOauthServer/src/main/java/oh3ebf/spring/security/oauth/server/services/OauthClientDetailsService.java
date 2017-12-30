@@ -27,7 +27,6 @@ public class OauthClientDetailsService implements ServiceInterface<ClientDetails
     public OauthClientDetailsService() {
 
     }
-//TODO mihin t�t� luokkaa k�ytet��n
     
     @PostConstruct
     private void initialize() {

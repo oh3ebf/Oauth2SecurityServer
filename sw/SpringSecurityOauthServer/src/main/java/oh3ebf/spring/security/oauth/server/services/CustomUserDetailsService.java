@@ -30,9 +30,8 @@ import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.stereotype.Service;
 
 /**
- * OAuth2 k�ytt�� t�t� autentikointiin
- * 
- * @author kristkim
+ * OAuth2 uses this file to user authentication
+ *
  */
 @Service("userDetailsService")
 @Configuration
@@ -41,13 +40,15 @@ public class CustomUserDetailsService extends JdbcDaoImpl {
 
     private final Logger log = Logger.getLogger(CustomUserDetailsService.class);
     public final static String SQL_All_USERS = "SELECT * FROM users WHERE username = ?";
-    public final static String SQL_AUTHORITIES_BY_USER_ID = "SELECT users.username, auth.authority FROM user_authorities AS auth, users WHERE users.id=auth.users_id AND users.username = ?";
-    public final static String SQL_GROUP_AUTHORITIES_BY_USER_ID = "SELECT g.id, g.group_name, ga.authority FROM users AS u, groups AS g, group_members AS gm, group_authorities AS ga "
-            + "WHERE u.username = ? AND gm.users_id = u.id AND g.id = ga.groups_id AND g.id = gm.groups_id";
+
+    public final static String SQL_AUTHORITIES_BY_USER_NAME = "SELECT users.username, auth.authority FROM user_authorities AS auth, users WHERE users.id=auth.users_id AND users.username = ?";
+
+    public final static String SQL_GROUP_AUTHORITIES_BY_USER_NAME = "SELECT  u.username, u.password, g.authority AS authority FROM users AS u INNER JOIN (groups AS g, group_members AS gm) "
+            + "ON (u.id = gm.users_id AND g.id = gm.groups_id) WHERE u.username = ?";
 
     @Autowired
     Environment env;
-    
+
     @Autowired
     private DataSource dataSource;
 
@@ -59,8 +60,8 @@ public class CustomUserDetailsService extends JdbcDaoImpl {
     private void initialize() {
         setDataSource(dataSource);
         setUsersByUsernameQuery(SQL_All_USERS);
-        setAuthoritiesByUsernameQuery(SQL_AUTHORITIES_BY_USER_ID);
-        setGroupAuthoritiesByUsernameQuery(SQL_GROUP_AUTHORITIES_BY_USER_ID);
+        setAuthoritiesByUsernameQuery(SQL_AUTHORITIES_BY_USER_NAME);
+        setGroupAuthoritiesByUsernameQuery(SQL_GROUP_AUTHORITIES_BY_USER_NAME);
         setRolePrefix(env.getProperty("login.role.prefix", String.class));
 
         boolean groupsSupport = env.getProperty("login.groups.support", boolean.class);
@@ -72,42 +73,12 @@ public class CustomUserDetailsService extends JdbcDaoImpl {
             log.info("Group authorities support enabled.");
         }
     }
-
+    
     /**
-     * Function sets users query for custom Db schema
-     *
-     * @param usersByUsernameQueryString
-     */
-    /*@Override
-    @Value("SELECT * FROM users WHERE username = ?")
-    public void setUsersByUsernameQuery(String usersByUsernameQueryString) {
-        super.setUsersByUsernameQuery(usersByUsernameQueryString);
-    }*/
-    /**
-     * Function sets user authorities query for custom Db schema
-     *
-     * @param queryString
-     */
-    /*@Override
-    @Value("SELECT users.username, auth.authority FROM user_authorities AS auth, users WHERE users.id=auth.users_id AND users.username = ?")
-    public void setAuthoritiesByUsernameQuery(String queryString) {
-        super.setAuthoritiesByUsernameQuery(queryString);
-    }*/
-    /**
-     * Function sets group authorities query for custom Db schema
-     *
-     * @param queryString
-     */
-    /*@Override
-    @Value("SELECT g.id, g.group_name, ga.authority FROM users AS u, groups AS g, group_members AS gm, group_authorities AS ga "
-            + "WHERE u.username = ? AND gm.users_id = u.id AND g.id = ga.groups_id AND g.id = gm.groups_id")
-    public void setGroupAuthoritiesByUsernameQuery(String queryString) {
-        super.setGroupAuthoritiesByUsernameQuery(queryString);
-    }*/
-    /**
-     *
-     * @param username
-     * @return
+     * Function return user details
+     * 
+     * @param username to query for
+     * @return List on user details
      */
     @Override
     public List<UserDetails> loadUsersByUsername(String username) {
@@ -127,13 +98,14 @@ public class CustomUserDetailsService extends JdbcDaoImpl {
         });
     }
 
-    //override to pass accountNonLocked
+    
     /**
-     *
-     * @param username
-     * @param userFromUserQuery
-     * @param combinedAuthorities
-     * @return
+     * Function creates new UserDeatails object from parameters
+     * 
+     * @param username to use
+     * @param userFromUserQuery UserDetails from query
+     * @param combinedAuthorities of user
+     * @return new UserDetails object
      */
     @Override
     public UserDetails createUserDetails(String username, UserDetails userFromUserQuery, List<GrantedAuthority> combinedAuthorities) {

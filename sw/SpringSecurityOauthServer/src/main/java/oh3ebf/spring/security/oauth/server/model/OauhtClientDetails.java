@@ -6,11 +6,10 @@
  * Owner: Kim Kristo
  * Date creation : 25.1.2017
  */
-
 package oh3ebf.spring.security.oauth.server.model;
 
-
 public class OauhtClientDetails {
+
     private String clientId;
     private String resourceIds;
     private String clientSecret;
@@ -176,5 +175,5 @@ public class OauhtClientDetails {
     public void setAutoapprove(String autoapprove) {
         this.autoapprove = autoapprove;
     }
-    
+
 }

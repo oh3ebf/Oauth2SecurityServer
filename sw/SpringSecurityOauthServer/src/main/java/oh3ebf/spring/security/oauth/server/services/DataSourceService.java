@@ -30,7 +30,7 @@ public class DataSourceService {
     /**
      * Function connect to JDBC data source
      *
-     * @return
+     * @return DataSource object
      */
     @Bean
     public DataSource getDataSource() {

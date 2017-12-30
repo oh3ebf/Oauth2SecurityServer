@@ -26,11 +26,11 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     /**
      * Function send REST compatible response to failed authentication request
      *
-     * @param request
-     * @param response
-     * @param arg2
-     * @throws IOException
-     * @throws ServletException
+     * @param request to respond
+     * @param response to put error
+     * @param arg2 exception instance
+     * @throws IOException on error
+     * @throws ServletException on error
      */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException arg2)

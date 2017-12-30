@@ -22,29 +22,29 @@ public class SecurityOauthServerMVCExceptionHanler extends ResponseEntityExcepti
 
     /**
      * 
-     * @param ex
-     * @param request
-     * @return 
+     * @param ex IllegalArgumentException to handle
+     * @param request to serve
+     * @return ResponseEntity with error
      */
     @ExceptionHandler(value = {IllegalArgumentException.class, IllegalStateException.class})
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
 
-        String bodyOfResponse = "This should be application specific";
+        String bodyOfResponse = ex.getMessage();
 
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     /**
      * Handler for Jackson UnrecognizedPropertyException
      *
-     * @param ex
-     * @param request
-     * @return
+     * @param ex UnrecognizedPropertyException to handle
+     * @param request to serve
+     * @return ResponseEntity with error
      */
     @ExceptionHandler(value = {com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException.class})
     protected ResponseEntity<Object> handleUnrecognizedField(RuntimeException ex, WebRequest request) {
 
-        String bodyOfResponse = ex.getLocalizedMessage();
+        String bodyOfResponse = ex.getMessage();
 
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
@@ -52,9 +52,9 @@ public class SecurityOauthServerMVCExceptionHanler extends ResponseEntityExcepti
     /**
      * Handler for application specific exception
      *
-     * @param ex
-     * @param request
-     * @return
+     * @param ex SecurityOauthServerOperationFailedException to handle
+     * @param request to serve
+     * @return ResponseEntity with error
      */
     @ExceptionHandler(value = {SecurityOauthServerOperationFailedException.class})
     protected ResponseEntity<Object> handleSurveyPollOperationFailed(RuntimeException ex, WebRequest request) {

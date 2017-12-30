@@ -9,7 +9,6 @@
 
 package oh3ebf.spring.security.oauth.server;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import javax.annotation.PostConstruct;
 
@@ -21,8 +20,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -31,7 +28,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
@@ -56,19 +52,20 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     }
     /**
      *
-     * @param oauthServer
-     * @throws Exception
+     * @param oauthServer to configure
+     * @throws Exception on error
      */
     @Override
     public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        // configure for basic authentication
         oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
     }
 
     /**
      * Function configures Oauth2 client services
      * 
-     * @param clients
-     * @throws Exception
+     * @param clients to configure
+     * @throws Exception on error
      */
     @Override
     public void configure(final ClientDetailsServiceConfigurer clients) throws Exception {
@@ -78,8 +75,8 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     /**
      * Function configures Spring authorization services end points
      * 
-     * @param endpoints
-     * @throws Exception
+     * @param endpoints to configure
+     * @throws Exception on error
      */
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -96,7 +93,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     /**
      * Function configures token services
      * 
-     * @return
+     * @return token services
      */
     @Bean
     @Primary
@@ -111,42 +108,20 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     }
 
     /**
-     * Function sets token enhancer for authentication
-     * 
-     * @return
-     */
-    /*
-    @Bean
-    public TokenEnhancer tokenEnhancer() {
-        return new CustomTokenEnhancer();
-    }*/
-
-    /**
      * Function sets data source for authentication
      * 
-     * @param dataSource
-     * @return
+     * @param dataSource to set
+     * @return data source initializer
      */
-    // JDBC token store configuration
+    
     @Bean
     public DataSourceInitializer dataSourceInitializer(final DataSource dataSource) {
         log.info("Configuring datasource...");
+        
+        // JDBC token store configuration
         final DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);
 
         return initializer;
     }
-
-    
-
-    /**
-     * Function sets token store for authentication
-     * 
-     * @return
-     */
-    /*@Bean
-    public TokenStore tokenStore() {
-        log.info("Setting JDBC token store...");
-        return new JdbcTokenStore(dataSource());
-    }*/
 }

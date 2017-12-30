@@ -74,8 +74,9 @@ public class UserDetailsDao extends JdbcDaoSupport implements UserDetailsDaoIF {
     }
 
     /**
-     *
-     * @param username
+     * Function updates user failed login attempts
+     * 
+     * @param username of login user
      */
     @Override
     public void updateFailAttempts(String username) {
@@ -110,9 +111,10 @@ public class UserDetailsDao extends JdbcDaoSupport implements UserDetailsDaoIF {
     }
 
     /**
-     *
-     * @param username
-     * @return
+     * Function return user failed login attempts
+     * 
+     * @param username of login user
+     * @return UserAttempts of login user
      */
     @Override
     public UserAttempts getUserAttempts(String username) {
@@ -138,8 +140,9 @@ public class UserDetailsDao extends JdbcDaoSupport implements UserDetailsDaoIF {
     }
 
     /**
-     *
-     * @param username
+     * Function reset user failed login attempts value
+     * 
+     * @param username of login user
      */
     @Override
     public void resetFailAttempts(String username) {
@@ -147,9 +150,10 @@ public class UserDetailsDao extends JdbcDaoSupport implements UserDetailsDaoIF {
     }
 
     /**
-     *
-     * @param username
-     * @return
+     * Function checks user existence in database
+     * 
+     * @param username of login user
+     * @return true if user exists
      */
     private boolean isUserExists(String username) {
         boolean result = false;

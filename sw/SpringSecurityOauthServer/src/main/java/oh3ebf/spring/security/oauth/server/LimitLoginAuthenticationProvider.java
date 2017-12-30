@@ -43,9 +43,9 @@ public class LimitLoginAuthenticationProvider extends DaoAuthenticationProvider 
     /**
      * Function handles user login attempts counting and account locking
      *
-     * @param authentication
-     * @return
-     * @throws AuthenticationException
+     * @param authentication instance to verify
+     * @return Authentication for user
+     * @throws AuthenticationException on error
      */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
