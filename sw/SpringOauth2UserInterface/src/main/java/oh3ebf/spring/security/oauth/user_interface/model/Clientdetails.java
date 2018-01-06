@@ -1,5 +1,5 @@
 /**
- * Software:
+ * Software: SpringOauth2Server REST client for user interface
  * Module: Clientdetails class
  * Version: 0.1
  * Licence: GPL2
@@ -19,8 +19,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "clientdetails")
-//@NamedQueries({
-//    @NamedQuery(name = "Clientdetails.findAll", query = "SELECT c FROM Clientdetails c")})
 public class Clientdetails implements Serializable {
 
     private static final long serialVersionUID = 1L;

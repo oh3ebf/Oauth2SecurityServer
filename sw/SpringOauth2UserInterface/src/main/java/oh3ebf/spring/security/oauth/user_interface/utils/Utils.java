@@ -1,5 +1,5 @@
 /**
- * Software:
+ * Software: SpringOauth2Server REST client for user interface
  * Module: Utils class
  * Version: 0.1
  * Licence: GPL2
@@ -10,6 +10,7 @@ package oh3ebf.spring.security.oauth.user_interface.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import oh3ebf.spring.security.oauth.user_interface.model.Users;
 
 public class Utils {
 
@@ -31,5 +32,27 @@ public class Utils {
             }
         }
         return list;
+    }
+
+    /**
+     * Function clear password from given user
+     * 
+     * @param user 
+     */
+    public static void clearPasswdFromUser(Users user) {
+        // do not send password to client
+        user.setPassword("");
+    }
+
+    /**
+     * Function clear password from given user list
+     * 
+     * @param users 
+     */
+    public static void clearPasswdFromUsers(List<Users> users) {
+        for (Users u : users) {
+            // do not send password to client
+            u.setPassword("");
+        }
     }
 }

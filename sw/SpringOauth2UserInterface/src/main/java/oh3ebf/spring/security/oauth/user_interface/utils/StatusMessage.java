@@ -1,18 +1,19 @@
 /**
- * Software:
+ * Software: SpringOauth2Server REST client for user interface
  * Module: StatusMessage class
  * Version: 0.1
  * Licence: GPL2
  * Owner: Kim Kristo
  * Date creation : 23.12.2016
  */
+
 package oh3ebf.spring.security.oauth.user_interface.utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StatusMessage<T> {
 
+public class StatusMessage<T> {
     private String status;
     private List<T> response;
     public static final String MESSAGE_OK = "TXT_OK";
@@ -30,7 +31,7 @@ public class StatusMessage<T> {
 
     /**
      * Function returns status message
-     *
+     * 
      * @return the status
      */
     public String getStatus() {
@@ -39,14 +40,16 @@ public class StatusMessage<T> {
 
     /**
      * Function set status message
-     *
+     * 
      * @param status the status to set
      */
     public void setStatus(String status) {
         this.status = status;
-    }
+    }       
 
     /**
+     * Function return response object list
+     * 
      * @return the response
      */
     public List<T> getResponse() {
@@ -54,6 +57,8 @@ public class StatusMessage<T> {
     }
 
     /**
+     * Function set response object list
+     * 
      * @param response the response to set
      */
     public void setResponse(List<T> response) {

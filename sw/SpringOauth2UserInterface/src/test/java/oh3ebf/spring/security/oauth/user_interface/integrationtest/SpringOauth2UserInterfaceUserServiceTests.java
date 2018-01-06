@@ -1,3 +1,11 @@
+/**
+ * Software: SpringOauth2Server REST client for user interface
+ * Module: SpringOauth2UserInterfaceUserServiceTests class
+ * Version: 0.1
+ * Licence: GPL2
+ * Owner: Kim Kristo
+ * Date creation : 18.7.2017
+ */
 package oh3ebf.spring.security.oauth.user_interface.integrationtest;
 
 import java.util.List;

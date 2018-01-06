@@ -1,5 +1,5 @@
 /**
- * Software:
+ * Software: SpringOauth2Server REST client for user interface
  * Module: SpringOauth2UserInterfaceApplication class
  * Version: 0.1
  * Licence: GPL2
@@ -45,7 +45,7 @@ public class SpringOauth2UserInterfaceApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:9000")
+                        //.allowedOrigins("http://localhost:9000")
                         .allowedMethods("GET", "PUT", "POST", "DELETE");
             }
         };

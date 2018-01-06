@@ -1,5 +1,5 @@
 /**
- * Software:
+ * Software: SpringOauth2Server REST client for user interface
  * Module: GroupMembers class
  * Version: 0.1
  * Licence: GPL2
@@ -8,9 +8,9 @@
  */
 package oh3ebf.spring.security.oauth.user_interface.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,6 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "group_members")
 public class GroupMembers implements Serializable {
@@ -29,16 +30,16 @@ public class GroupMembers implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Basic(optional = false)
+    @Basic(optional = false)
     @Column(name = "id")
     private Long id;
-    @JsonManagedReference
+    @JsonManagedReference(value="groups")
     @JoinColumn(name = "groups_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_group_members_groups1"))
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Groups groupsId;
-    @JsonBackReference
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)    
+    private Groups groupsId;       
+    @JsonManagedReference(value="group-members")
     @JoinColumn(name = "users_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_group_members_users1"))
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)    
     private Users usersId;
 
     public GroupMembers() {
@@ -96,5 +97,5 @@ public class GroupMembers implements Serializable {
     public String toString() {
         return "oh3ebf.spring.security.oauth.user_interface.model.GroupMembers[ id=" + id + " ]";
     }
-
+    
 }

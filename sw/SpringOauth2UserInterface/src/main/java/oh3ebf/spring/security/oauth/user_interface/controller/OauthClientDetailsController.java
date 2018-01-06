@@ -1,5 +1,5 @@
 /**
- * Software:
+ * Software: SpringOauth2Server REST client for user interface
  * Module: OauthClientDetailsController class
  * Version: 0.1
  * Licence: GPL2
@@ -8,6 +8,7 @@
  */
 package oh3ebf.spring.security.oauth.user_interface.controller;
 
+import java.util.ArrayList;
 import oh3ebf.spring.security.oauth.user_interface.utils.StatusMessage;
 import java.util.List;
 import oh3ebf.spring.security.oauth.user_interface.model.OauthClientDetails;
@@ -22,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/v1")
 public class OauthClientDetailsController {
 
     private final Logger log = Logger.getLogger(OauthClientDetailsController.class);
@@ -36,7 +39,7 @@ public class OauthClientDetailsController {
      *
      * @return OauthClientDetails as list
      */
-    @PreAuthorize("#oauth2.hasScope('oauth2') and #oauth2.hasScope('read') and hasRole('ROLE_OAUTH2_USER')")
+    @PreAuthorize("#oauth2.hasScope('oauth2') and #oauth2.hasScope('read') and hasRole('ROLE_OAUTH2_ADMIN')")
     @RequestMapping(value = "/oauth-client-details", method = GET, produces = "application/json")
     public StatusMessage getAllOauthClientDetails() {
         StatusMessage<OauthClientDetails> msg = new StatusMessage<>();
@@ -64,9 +67,16 @@ public class OauthClientDetailsController {
     @PreAuthorize("#oauth2.hasScope('oauth2') and #oauth2.hasScope('write') and hasRole('ROLE_OAUTH2_ADMIN')")
     @RequestMapping(value = "/oauth-client-details", method = POST, produces = "application/json")
     public StatusMessage addOauthClientDetails(@RequestBody OauthClientDetails details) {
+        StatusMessage<OauthClientDetails> msg = new StatusMessage<>();
+        List<OauthClientDetails> clientDetailsList = new ArrayList<>();
 
-        oauthClientDetailsService.saveOauthClientDetails(details);
-        return new StatusMessage(StatusMessage.MESSAGE_OK);
+        OauthClientDetails clientDetails = oauthClientDetailsService.saveOauthClientDetails(details);
+
+        clientDetailsList.add(clientDetails);
+        msg.setStatus(StatusMessage.MESSAGE_OK);
+        msg.setResponse(clientDetailsList);
+
+        return msg;
     }
 
     /**
@@ -75,7 +85,7 @@ public class OauthClientDetailsController {
      * @param query
      * @return
      */
-    @PreAuthorize("#oauth2.hasScope('oauth2') and #oauth2.hasScope('read') and hasRole('ROLE_OAUTH2_USER')")
+    @PreAuthorize("#oauth2.hasScope('oauth2') and #oauth2.hasScope('read') and hasRole('ROLE_OAUTH2_ADMIN')")
     @RequestMapping(value = "/oauth-client-details/{query}", method = GET, produces = "application/json")
     public StatusMessage getOauthClientDetails(@PathVariable("query") String query) {
         StatusMessage<OauthClientDetails> msg = new StatusMessage<>();
@@ -112,7 +122,7 @@ public class OauthClientDetailsController {
      * @return
      */
     @PreAuthorize("#oauth2.hasScope('oauth2') and #oauth2.hasScope('write') and hasRole('ROLE_OAUTH2_ADMIN')")
-    @RequestMapping(value = "/oauth-client-details/{query}", method = POST, produces = "application/json")
+    @RequestMapping(value = "/oauth-client-details/{query}", method = PUT, produces = "application/json")
     public StatusMessage updateOauthClientDetails(@RequestBody OauthClientDetails details, @PathVariable("query") String query) {
 
         oauthClientDetailsService.saveOauthClientDetails(details);
@@ -133,5 +143,4 @@ public class OauthClientDetailsController {
 
         return new StatusMessage(StatusMessage.MESSAGE_OK);
     }
-
 }

@@ -1,5 +1,5 @@
 /**
- * Software:
+ * Software: SpringOauth2Server REST client for user interface
  * Module: Users class
  * Version: 0.1
  * Licence: GPL2
@@ -9,7 +9,6 @@
 package oh3ebf.spring.security.oauth.user_interface.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -35,7 +34,7 @@ public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Basic(optional = false)
+    @Basic(optional = false)
     @Column(name = "id")
     private Long id;
     @Basic(optional = false)
@@ -85,15 +84,15 @@ public class Users implements Serializable {
     @Column(name = "avatar_image")
     private String avatarImage;
 
-    @JsonManagedReference
+    @JsonBackReference(value = "group-members")
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "group_members", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "groups_id", referencedColumnName = "id"))
     private List<Groups> groups;
 
-    @JsonBackReference
+    @JsonBackReference(value = "user-attempts")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usersId", fetch = FetchType.LAZY)
     private List<UserAttempts> userAttempts;
-    @JsonBackReference
+    @JsonBackReference(value = "user-authorities")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usersId", fetch = FetchType.LAZY)
     private List<UserAuthorities> userAuthorities;
 
@@ -242,7 +241,7 @@ public class Users implements Serializable {
     public void setUserAuthorities(List<UserAuthorities> userAuthorities) {
         this.userAuthorities = userAuthorities;
     }
-
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -280,6 +279,34 @@ public class Users implements Serializable {
      */
     public void setGroups(List<Groups> groups) {
         this.groups = groups;
+    }
+
+    /**
+     * @return the userAttempts
+     */
+    public List<UserAttempts> getUserAttempts() {
+        return userAttempts;
+    }
+
+    /**
+     * @param userAttempts the userAttempts to set
+     */
+    public void setUserAttempts(List<UserAttempts> userAttempts) {
+        this.userAttempts = userAttempts;
+    }
+
+    /**
+     * @return the userAuthorities
+     */
+    public List<UserAuthorities> getUserAuthorities() {
+        return userAuthorities;
+    }
+
+    /**
+     * @param userAuthorities the userAuthorities to set
+     */
+    public void setUserAuthorities(List<UserAuthorities> userAuthorities) {
+        this.userAuthorities = userAuthorities;
     }
 
 }

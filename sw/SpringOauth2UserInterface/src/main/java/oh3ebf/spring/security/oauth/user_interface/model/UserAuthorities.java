@@ -1,5 +1,5 @@
 /**
- * Software:
+ * Software: SpringOauth2Server REST client for user interface
  * Module: UserAuthorities class
  * Version: 0.1
  * Licence: GPL2
@@ -8,7 +8,7 @@
  */
 package oh3ebf.spring.security.oauth.user_interface.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -31,7 +31,7 @@ public class UserAuthorities implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Basic(optional = false)
+    @Basic(optional = false)
     @Column(name = "id")
     private Long id;
     @Basic(optional = false)
@@ -39,7 +39,7 @@ public class UserAuthorities implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "authority")
     private String authority;
-    @JsonManagedReference
+    @JsonBackReference
     @JoinColumn(name = "users_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_user_authorities_users1"))
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users usersId;
@@ -104,5 +104,4 @@ public class UserAuthorities implements Serializable {
     public String toString() {
         return "oh3ebf.spring.security.oauth.user_interface.model.UserAuthorities[ id=" + id + " ]";
     }
-
 }

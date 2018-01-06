@@ -3,16 +3,17 @@
   <persistence-unit name="oh3ebf.spring.security.oauth.user_interface_SpringOauth2UserInterface_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>oh3ebf.spring.security.oauth.user_interface.model.Clientdetails</class>
-    <class>oh3ebf.spring.security.oauth.user_interface.model.GroupAuthorities</class>
     <class>oh3ebf.spring.security.oauth.user_interface.model.GroupMembers</class>
-    <class>oh3ebf.spring.security.oauth.user_interface.model.Groups</class>
     <class>oh3ebf.spring.security.oauth.user_interface.model.UserRoles</class>
     <class>oh3ebf.spring.security.oauth.user_interface.model.OauthClientDetails</class>
-    <class>oh3ebf.spring.security.oauth.user_interface.model.UserAuthorities</class>
     <class>oh3ebf.spring.security.oauth.user_interface.model.OauthAccessToken</class>
     <class>oh3ebf.spring.security.oauth.user_interface.model.OauthClientToken</class>
     <class>oh3ebf.spring.security.oauth.user_interface.model.UserAttempts</class>
+    <class>oh3ebf.spring.security.oauth.user_interface.model.Groups</class>
+    <class>oh3ebf.spring.security.oauth.user_interface.model.GroupAuthorities</class>
+    <class>oh3ebf.spring.security.oauth.user_interface.model.UserAuthorities</class>
     <class>oh3ebf.spring.security.oauth.user_interface.model.Users</class>
+    <class>oh3ebf.spring.security.oauth.user_interface.model.AuthorityRoles</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/oauth_db?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="oauthuser"/>

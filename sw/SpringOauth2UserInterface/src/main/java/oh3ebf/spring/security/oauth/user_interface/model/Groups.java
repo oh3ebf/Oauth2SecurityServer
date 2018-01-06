@@ -1,5 +1,5 @@
 /**
- * Software:
+ * Software: SpringOauth2Server REST client for user interface
  * Module: Groups class
  * Version: 0.1
  * Licence: GPL2
@@ -9,11 +9,9 @@
 package oh3ebf.spring.security.oauth.user_interface.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,21 +19,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "groups")
-//@NamedQueries({
-//    @NamedQuery(name = "Groups.findAll", query = "SELECT g FROM Groups g")})
 public class Groups implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Basic(optional = false)
+    @Basic(optional = false)
     @Column(name = "id")
     private Long id;
     @Basic(optional = false)
@@ -43,14 +38,20 @@ public class Groups implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "group_name")
     private String groupName;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "description")
+    private String description;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "authority")
+    private String authority;
 
     @ManyToMany(mappedBy = "groups", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value = "groups")
     private List<Users> users;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupsId", fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<GroupAuthorities> groupAuthorities;
 
     public Groups() {
     }
@@ -80,6 +81,20 @@ public class Groups implements Serializable {
         this.groupName = groupName;
     }
 
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     /*
     public List<GroupMembers> getGroupMembers() {
         return groupMembers;
@@ -96,7 +111,7 @@ public class Groups implements Serializable {
     public void setGroupAuthorities(List<GroupAuthorities> groupAuthoritiesCollection) {
         this.groupAuthorities = groupAuthoritiesCollection;
     }
-
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -136,4 +151,11 @@ public class Groups implements Serializable {
         this.users = users;
     }
 
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
 }

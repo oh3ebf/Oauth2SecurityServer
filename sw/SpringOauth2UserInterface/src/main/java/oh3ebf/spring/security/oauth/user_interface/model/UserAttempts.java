@@ -1,5 +1,5 @@
 /**
- * Software:
+ * Software: SpringOauth2Server REST client for user interface
  * Module: UserAttempts class
  * Version: 0.1
  * Licence: GPL2
@@ -8,7 +8,7 @@
  */
 package oh3ebf.spring.security.oauth.user_interface.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -34,7 +34,7 @@ public class UserAttempts implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Basic(optional = false)
+    @Basic(optional = false)
     @Column(name = "id")
     private Long id;
     @Basic(optional = false)
@@ -47,7 +47,8 @@ public class UserAttempts implements Serializable {
     @Column(name = "last_modified")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModified;
-    @JsonManagedReference
+
+    @JsonBackReference(value = "user-attempts")
     @JoinColumn(name = "users_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_user_attempts_users1"))
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users usersId;

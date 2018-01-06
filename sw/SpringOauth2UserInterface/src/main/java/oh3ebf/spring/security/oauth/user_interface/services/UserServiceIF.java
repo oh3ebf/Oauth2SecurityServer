@@ -1,5 +1,5 @@
 /*
- * Software: Spring Mysql template
+ * Software: SpringOauth2Server REST client for user interface
  * Module: UserServiceIF class
  * Version: 0.1
  * Licence: GPL2
@@ -19,7 +19,7 @@ public interface UserServiceIF {
 
     public Users getUserByName(String name);
 
-    public void saveUser(Users user);
+    public Users saveUser(Users user);
 
     public void deleteUser(Long id);
 }

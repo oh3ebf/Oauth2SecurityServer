@@ -1,5 +1,5 @@
 /*
- * Software: 
+ * Software: SpringOauth2Server REST client for user interface
  * Module: UserRepository class
  * Version: 0.1
  * Licence: GPL2

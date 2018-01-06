@@ -1,5 +1,5 @@
 /**
- * Software:
+ * Software: SpringOauth2Server REST client for user interface
  * Module: OauthClientToken class
  * Version: 0.1
  * Licence: GPL2
@@ -20,8 +20,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "oauth_client_token")
-//@NamedQueries({
-//    @NamedQuery(name = "OauthClientToken.findAll", query = "SELECT o FROM OauthClientToken o")})
 public class OauthClientToken implements Serializable {
 
     private static final long serialVersionUID = 1L;
