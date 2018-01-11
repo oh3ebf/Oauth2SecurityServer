@@ -1,6 +1,6 @@
 /**
  * Software: SpringOauth2Server REST client for user interface
- * Module: OauthClientDetails class
+ * Module: Clientdetails class
  * Version: 0.1
  * Licence: GPL2
  * Owner: Kim Kristo
@@ -12,44 +12,37 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "oauth_client_details")
-public class OauthClientDetails implements Serializable {
+@Table(name = "clientdetails")
+public class Clientdetails implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id", nullable = false)
-    private Long id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "client_id")
-    private String clientId;
+    @Column(name = "appId")
+    private String appId;
     @Size(max = 255)
-    @Column(name = "resource_ids")
+    @Column(name = "resourceIds")
     private String resourceIds;
     @Size(max = 255)
-    @Column(name = "client_secret")
-    private String clientSecret;
+    @Column(name = "appSecret")
+    private String appSecret;
     @Size(max = 255)
     @Column(name = "scope")
     private String scope;
     @Size(max = 255)
-    @Column(name = "authorized_grant_types")
-    private String authorizedGrantTypes;
+    @Column(name = "grantTypes")
+    private String grantTypes;
     @Size(max = 255)
-    @Column(name = "web_server_redirect_uri")
-    private String webServerRedirectUri;
+    @Column(name = "redirectUrl")
+    private String redirectUrl;
     @Size(max = 255)
     @Column(name = "authorities")
     private String authorities;
@@ -58,25 +51,25 @@ public class OauthClientDetails implements Serializable {
     @Column(name = "refresh_token_validity")
     private Integer refreshTokenValidity;
     @Size(max = 4096)
-    @Column(name = "additional_information")
+    @Column(name = "additionalInformation")
     private String additionalInformation;
     @Size(max = 255)
-    @Column(name = "autoapprove")
-    private String autoapprove;
+    @Column(name = "autoApproveScopes")
+    private String autoApproveScopes;
 
-    public OauthClientDetails() {
+    public Clientdetails() {
     }
 
-    public OauthClientDetails(String clientId) {
-        this.clientId = clientId;
+    public Clientdetails(String appId) {
+        this.appId = appId;
     }
 
-    public String getClientId() {
-        return clientId;
+    public String getAppId() {
+        return appId;
     }
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
     public String getResourceIds() {
@@ -87,12 +80,12 @@ public class OauthClientDetails implements Serializable {
         this.resourceIds = resourceIds;
     }
 
-    public String getClientSecret() {
-        return clientSecret;
+    public String getAppSecret() {
+        return appSecret;
     }
 
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
     }
 
     public String getScope() {
@@ -103,20 +96,20 @@ public class OauthClientDetails implements Serializable {
         this.scope = scope;
     }
 
-    public String getAuthorizedGrantTypes() {
-        return authorizedGrantTypes;
+    public String getGrantTypes() {
+        return grantTypes;
     }
 
-    public void setAuthorizedGrantTypes(String authorizedGrantTypes) {
-        this.authorizedGrantTypes = authorizedGrantTypes;
+    public void setGrantTypes(String grantTypes) {
+        this.grantTypes = grantTypes;
     }
 
-    public String getWebServerRedirectUri() {
-        return webServerRedirectUri;
+    public String getRedirectUrl() {
+        return redirectUrl;
     }
 
-    public void setWebServerRedirectUri(String webServerRedirectUri) {
-        this.webServerRedirectUri = webServerRedirectUri;
+    public void setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
     }
 
     public String getAuthorities() {
@@ -151,41 +144,29 @@ public class OauthClientDetails implements Serializable {
         this.additionalInformation = additionalInformation;
     }
 
-    public String getAutoapprove() {
-        return autoapprove;
+    public String getAutoApproveScopes() {
+        return autoApproveScopes;
     }
 
-    public void setAutoapprove(String autoapprove) {
-        this.autoapprove = autoapprove;
-    }
-
-    public OauthClientDetails(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setAutoApproveScopes(String autoApproveScopes) {
+        this.autoApproveScopes = autoApproveScopes;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (appId != null ? appId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OauthClientDetails)) {
+        if (!(object instanceof Clientdetails)) {
             return false;
         }
-        OauthClientDetails other = (OauthClientDetails) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        Clientdetails other = (Clientdetails) object;
+        if ((this.appId == null && other.appId != null) || (this.appId != null && !this.appId.equals(other.appId))) {
             return false;
         }
         return true;
@@ -193,7 +174,7 @@ public class OauthClientDetails implements Serializable {
 
     @Override
     public String toString() {
-        return "oh3ebf.spring.security.oauth.user_interface.model.OauthClientDetails[ id=" + id + " ]";
+        return "oh3ebf.spring.security.oauth.user_interface.model.Clientdetails[ appId=" + appId + " ]";
     }
 
 }

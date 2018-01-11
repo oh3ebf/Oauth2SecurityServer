@@ -6,13 +6,16 @@
  * Owner: Kim Kristo
  * Date creation : 17.7.2017
  */
+
 package oh3ebf.spring.security.oauth.user_interface.repository;
 
-import oh3ebf.spring.security.oauth.user_interface.model.OauthClientDetails;
+
+import oh3ebf.spring.security.oauth.user_interface.model.OauthClientToken;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
-public interface OauthClientDetailsRepository extends CrudRepository<OauthClientDetails, Long> {
 
+@Transactional
+public interface OauthClientTokenRepository extends CrudRepository<OauthClientToken, Long>{    
+    
 }

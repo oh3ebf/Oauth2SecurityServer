@@ -1,5 +1,5 @@
 /*
- * Software: SpringOauth2Server REST client for user interface
+ * Software:  SpringOauth2Server REST client for user interface
  * Module: UserRepository class
  * Version: 0.1
  * Licence: GPL2
@@ -8,11 +8,11 @@
  */
 package oh3ebf.spring.security.oauth.user_interface.repository;
 
-import oh3ebf.spring.security.oauth.user_interface.model.OauthClientDetails;
+import oh3ebf.spring.security.oauth.user_interface.model.OauthClientToken;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface OauthClientDetailsRepository extends CrudRepository<OauthClientDetails, Long> {
+public interface ClientDetailsRepository extends CrudRepository<OauthClientToken, Long> {
 
 }

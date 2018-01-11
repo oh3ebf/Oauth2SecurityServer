@@ -159,6 +159,32 @@ public class OauthClientDetails implements Serializable {
         this.autoapprove = autoapprove;
     }
 
+    /*
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (clientId != null ? clientId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof OauthClientDetails)) {
+            return false;
+        }
+        OauthClientDetails other = (OauthClientDetails) object;
+        if ((this.clientId == null && other.clientId != null) || (this.clientId != null && !this.clientId.equals(other.clientId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "oh3ebf.spring.security.oauth.user_interface.model.OauthClientDetails[ clientId=" + clientId + " ]";
+    }
+     */
     public OauthClientDetails(Long id) {
         this.id = id;
     }

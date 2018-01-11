@@ -1,31 +1,32 @@
 /**
  * Software: SpringOauth2Server REST client for user interface
- * Module: Groups class
+ * Module: UserAuthorities class
  * Version: 0.1
  * Licence: GPL2
  * Owner: Kim Kristo
- * Date creation : 27.9.2017
+ * Date creation : 17.7.2017
  */
 package oh3ebf.spring.security.oauth.user_interface.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "groups")
-public class Groups implements Serializable {
+@Table(name = "user_authorities")
+public class UserAuthorities implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -35,34 +36,24 @@ public class Groups implements Serializable {
     private Long id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "group_name")
-    private String groupName;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "description")
-    private String description;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "authority")
     private String authority;
+    @JsonBackReference
+    @JoinColumn(name = "users_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_user_authorities_users1"))
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Users usersId;
 
-    @ManyToMany(mappedBy = "groups", fetch = FetchType.LAZY)
-    @JsonBackReference(value = "groups")
-    private List<Users> users;
-
-    public Groups() {
+    public UserAuthorities() {
     }
 
-    public Groups(Long id) {
+    public UserAuthorities(Long id) {
         this.id = id;
     }
 
-    public Groups(Long id, String groupName) {
+    public UserAuthorities(Long id, String authority) {
         this.id = id;
-        this.groupName = groupName;
+        this.authority = authority;
     }
 
     public Long getId() {
@@ -73,26 +64,20 @@ public class Groups implements Serializable {
         this.id = id;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public String getAuthority() {
+        return authority;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
+    public Users getUsersId() {
+        return usersId;
     }
 
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUsersId(Users usersId) {
+        this.usersId = usersId;
     }
 
     @Override
@@ -105,10 +90,10 @@ public class Groups implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Groups)) {
+        if (!(object instanceof UserAuthorities)) {
             return false;
         }
-        Groups other = (Groups) object;
+        UserAuthorities other = (UserAuthorities) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -117,28 +102,6 @@ public class Groups implements Serializable {
 
     @Override
     public String toString() {
-        return "oh3ebf.spring.security.oauth.user_interface.model.Groups[ id=" + id + " ]";
-    }
-
-    /**
-     * @return the users
-     */
-    public List<Users> getUsers() {
-        return users;
-    }
-
-    /**
-     * @param users the users to set
-     */
-    public void setUsers(List<Users> users) {
-        this.users = users;
-    }
-
-    public String getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(String authority) {
-        this.authority = authority;
+        return "oh3ebf.spring.security.oauth.user_interface.model.UserAuthorities[ id=" + id + " ]";
     }
 }

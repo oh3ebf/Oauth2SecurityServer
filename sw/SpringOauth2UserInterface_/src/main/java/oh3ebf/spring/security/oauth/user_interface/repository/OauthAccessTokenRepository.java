@@ -8,11 +8,11 @@
  */
 package oh3ebf.spring.security.oauth.user_interface.repository;
 
-import oh3ebf.spring.security.oauth.user_interface.model.OauthClientDetails;
+import oh3ebf.spring.security.oauth.user_interface.model.OauthAccessToken;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface OauthClientDetailsRepository extends CrudRepository<OauthClientDetails, Long> {
+public interface OauthAccessTokenRepository extends CrudRepository<OauthAccessToken, Long> {
 
 }

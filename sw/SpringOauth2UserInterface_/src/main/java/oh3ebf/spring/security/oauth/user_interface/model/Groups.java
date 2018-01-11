@@ -95,6 +95,23 @@ public class Groups implements Serializable {
         this.description = description;
     }
 
+    /*
+    public List<GroupMembers> getGroupMembers() {
+        return groupMembers;
+    }
+
+    public void setGroupMembers(List<GroupMembers> groupMembersCollection) {
+        this.groupMembers = groupMembersCollection;
+    }
+
+    public List<GroupAuthorities> getGroupAuthorities() {
+        return groupAuthorities;
+    }
+
+    public void setGroupAuthorities(List<GroupAuthorities> groupAuthoritiesCollection) {
+        this.groupAuthorities = groupAuthoritiesCollection;
+    }
+     */
     @Override
     public int hashCode() {
         int hash = 0;
