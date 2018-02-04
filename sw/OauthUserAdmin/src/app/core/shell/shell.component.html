@@ -1,0 +1,17 @@
+<app-header></app-header>
+<div class="row ">
+	<div id="sidebar-left" class="col-xs-1 col-sm-1">
+		<app-side-menu> <app-side-menu-item
+			[fontAwesome]="'fa-pencil-square-o'" [tabtitle]="'TXT_HOME' | translate"
+			[routerLink]="'/home'"></app-side-menu-item> <app-side-menu-item
+			[fontAwesome]="'fa-user-circle-o'" [tabtitle]="'TXT_CLIENTS' | translate"
+			[routerLink]="'/oauth-clients'"></app-side-menu-item> <app-side-menu-item
+			[fontAwesome]="'fa-group'" [tabtitle]="'TXT_GROUPS' | translate"
+			[routerLink]="'/groups'"></app-side-menu-item> <app-side-menu-item
+			[fontAwesome]="'fa-user'" [tabtitle]="'TXT_USERS' | translate"
+			[routerLink]="'/users'"></app-side-menu-item> </app-side-menu>
+	</div>
+	<div id="content" class="col-xs-12 col-sm-11">
+		<router-outlet></router-outlet>
+	</div>
+</div>

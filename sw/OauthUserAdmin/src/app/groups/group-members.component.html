@@ -1,0 +1,27 @@
+<div class="modal-content">
+	<div class="dialog-header">
+		<button type="button" class="close" (click)="cancel()">&times;</button>
+		<h4>{{ 'TXT_GROUP_MEMBERS' | translate }}</h4>
+	</div>
+
+	<small id="groupMembersHelpBlock"
+		class="form-text text-muted group-members-info" translate>TXT_GROUP_MEMBERS_INFO</small>
+	<div class="dual-list-container">
+		<app-dual-list [source]="source" [(destination)]="confirmed"
+			[sort]="keepSorted" [key]="key" [display]="display"></app-dual-list>
+	</div>
+	<form class="form-horizontal" name="groupMembersForm"
+		id="frmGroupMembers" #groupMembersForm="ngForm">
+		<div class="dialog-message dialog-body">
+		</div>
+		<div class="dialog-buttons dialog-footer">
+			<button type="button" class="dialog-button dialog-button-secondary"
+				(click)="cancel()" translate>TXT_BUTTON_CANCEL</button>
+			<button type="button" class="dialog-button dialog-button-primary"
+				[ngClass]="{'button-disabled': !groupMembersForm.form.valid}"
+				[disabled]="!groupMembersForm.form.valid"
+				(click)="applyGroupMembers()" translate>&#160;TXT_BUTTON_SAVE&#160;
+			</button>
+		</div>
+	</form>
+</div>

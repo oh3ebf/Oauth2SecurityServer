@@ -1,0 +1,11 @@
+<div class="">
+	<ul class="nav app-side-menu">
+		<li class="" *ngFor="let item of getSideMenuItems()"
+			data-ripple-color="white" class=""><a class="nav-link"
+			routerLink="{{item.routerLink}}" routerLinkActive="active">
+				<div class="nav-link-content">
+					<span><i class="navicons fa {{item.fontAwesome}}"></i>{{item.tabtitle}}</span>
+				</div>
+		</a></li>
+	</ul>
+</div>

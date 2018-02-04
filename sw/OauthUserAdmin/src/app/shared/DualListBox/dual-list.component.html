@@ -1,0 +1,87 @@
+<div class="dual-list">
+	<div class="listbox" [ngStyle]="{ 'order' :  direction() ? 1 : 2, 'margin-left' : direction() ? 0 : '10px' }">
+		<!--
+		<button type="button" name="addBtn" class="btn btn-primary btn-block"
+			(click)="moveItem(available, confirmed)" [ngClass]="direction() ? 'point-right' : 'point-left'"
+			[disabled]="available.pick.length === 0">
+				{{format.add}}
+		</button>
+	-->
+			<!--
+		<form *ngIf="filter" class="filter">
+			<input class="form-control" name="filterSource" [(ngModel)]="available.picker" (ngModelChange)="onFilter(available)">
+		</form>
+-->
+		<div class="record-picker">
+			<ul [ngStyle]="{'max-height': height, 'min-height': height}" [ngClass]="{over:available.dragOver}"
+				(drop)="drop($event, confirmed)" (dragover)="allowDrop($event, available)" (dragleave)="dragLeave()">
+				<li *ngFor="let item of available.sift; let idx=index;"
+					(click)="selectItem(available.pick, item); shiftClick($event, idx, available, item)"
+					[ngClass]="{selected: isItemSelected(available.pick, item)}"
+					draggable="true" (dragstart)="drag($event, item, available)" (dragend)="dragEnd(available)"
+				><label>{{item._name}}</label></li>
+			</ul>
+		</div>
+
+
+
+		<div class="button-bar">
+			<button type="button" class="btn btn-primary btn-sm pull-left" (click)="selectAll(available)"
+				[disabled]="isAllSelected(available)">{{format.all}}</button>
+			<button type="button" class="btn btn-primary btn-sm pull-left" (click)="selectNone(available)"
+				[disabled]="!isAnySelected(available)">{{format.none}}</button>
+		</div>
+	</div>
+
+
+
+	<div style="order:2;margin-left:10px;width: 50px;">
+
+		<button type="button" name="addBtn" class="btn btn-primary btn-sm" style="width: 50px;margin-top:10px;"
+			(click)="moveItem(available, confirmed)"
+			[disabled]="available.pick.length === 0">
+			<span>
+			<i class="navicons fa fa-arrow-right"></i>
+		</span>
+		</button>
+
+		<button type="button" name="removeBtn" class="btn btn-primary btn-sm" style="width: 50px;margin-top:10px;"
+			(click)="moveItem(confirmed, available)"
+			[disabled]="confirmed.pick.length === 0">
+			<i class="navicons fa fa-arrow-left"></i>
+		</button>
+	</div>
+
+
+	<div class="listbox" [ngStyle]="{ 'order' : direction() ? 3 : 1, 'margin-left' : direction() ? '10px' : 0 }">
+		<!--
+		<button type="button" name="removeBtn" class="btn btn-primary btn-block"
+			(click)="moveItem(confirmed, available)" [ngClass]="direction() ? 'point-left' : 'point-right'"
+			[disabled]="confirmed.pick.length === 0">
+			{{format.remove}}
+		</button>
+	-->
+			<!--
+		<form *ngIf="filter" class="filter">
+			<input class="form-control" name="filterDestination" [(ngModel)]="confirmed.picker" (ngModelChange)="onFilter(confirmed)">
+		</form>
+	-->
+		<div class="record-picker">
+			<ul [ngStyle]="{'max-height': height, 'min-height': height}" [ngClass]="{over:confirmed.dragOver}"
+				(drop)="drop($event, available)" (dragover)="allowDrop($event, confirmed)" (dragleave)="dragLeave()">
+				<li *ngFor="let item of confirmed.sift; let idx=index;"
+					(click)="selectItem(confirmed.pick, item); shiftClick($event, idx, confirmed, item)"
+					[ngClass]="{selected: isItemSelected(confirmed.pick, item)}"
+					draggable="true" (dragstart)="drag($event, item, confirmed)" (dragend)="dragEnd(confirmed)"
+				><label>{{item._name}}</label></li>
+			</ul>
+		</div>
+
+		<div class="button-bar">
+			<button type="button" class="btn btn-primary btn-sm pull-left" (click)="selectAll(confirmed)"
+				[disabled]="isAllSelected(confirmed)">{{format.all}}</button>
+			<button type="button" class="btn btn-primary btn-sm pull-left" (click)="selectNone(confirmed)"
+				[disabled]="!isAnySelected(confirmed)">{{format.none}}</button>
+		</div>
+	</div>
+</div>
