@@ -10,11 +10,12 @@ import {Credentials} from '../core/authentication/credentials.interface';
 import {AuthenticationService} from '../core/authentication/authentication.service';
 import {ServiceActionInterfase} from '../shared/service-action.interface';
 import {RequestResponse} from '../shared/request-response.interface';
+import {environment} from '../../environments/environment';
 
 const routes = {
-  users: () => `oauthadmin/api/v1/users`,
-  user: (u: User) => `oauthadmin/api/v1/users/${u.id}`,
-  userPasswd: (u: User) => `oauthadmin/api/v1/users/${u.id}/password`
+  users: () => `${environment.tokenUrl}oauthadmin/api/v1/users`,
+  user: (u: User) => `${environment.tokenUrl}oauthadmin/api/v1/users/${u.id}`,
+  userPasswd: (u: User) => `${environment.tokenUrl}oauthadmin/api/v1/users/${u.id}/password`
 };
 
 @Injectable()

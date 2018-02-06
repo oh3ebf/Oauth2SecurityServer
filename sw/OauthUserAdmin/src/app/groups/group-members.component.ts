@@ -23,8 +23,8 @@ import {RequestResponse} from '../shared/request-response.interface';
 export class GroupMembersComponent extends DialogComponent implements OnInit {
 
   keepSorted = true;
-  key: 'id';
-  display: 'username';
+  key = 'id';
+  display = 'username';
   source: Array<any> = [];
   confirmed: Array<any> = [];
   private ac: ServiceAction<UserService>;

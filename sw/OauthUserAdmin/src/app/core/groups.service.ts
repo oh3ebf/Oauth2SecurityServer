@@ -11,11 +11,12 @@ import {Credentials} from '../core/authentication/credentials.interface';
 import {AuthenticationService} from '../core/authentication/authentication.service';
 import {ServiceActionInterfase} from '../shared/service-action.interface';
 import {RequestResponse} from '../shared/request-response.interface';
+import {environment} from '../../environments/environment';
 
 const routes = {
-  groups: () => `oauthadmin/api/v1/groups`,
-  group: (g: Group) => `oauthadmin/api/v1/groups/${g.id}`,
-  groupMembers: (g: Group) => `oauthadmin/api/v1/groups/${g.id}/members`
+  groups: () => `${environment.tokenUrl}oauthadmin/api/v1/groups`,
+  group: (g: Group) => `${environment.tokenUrl}oauthadmin/api/v1/groups/${g.id}`,
+  groupMembers: (g: Group) => `${environment.tokenUrl}oauthadmin/api/v1/groups/${g.id}/members`
 };
 
 @Injectable()

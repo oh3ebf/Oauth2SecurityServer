@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Router } from '@angular/router';
 import { Credentials } from './credentials.interface';
+import {environment} from '../../../environments/environment';
 
 export interface LoginContext {
   username: string;
@@ -14,7 +15,7 @@ export interface LoginContext {
 
 const credentialsKey = 'credentials';
 const routes = {
-    oauthToken: () => `oauth/token`
+    oauthToken: () => `${environment.tokenUrl}oauth/token`
 };
 
 /**

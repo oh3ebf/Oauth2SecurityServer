@@ -6,7 +6,9 @@
 export const environment = {
   production: false,
   version: '(dev)',
-  serverUrl: '/',
+  serverUrl: '',
+  apiUrl: '',
+  tokenUrl: '',
   defaultLanguage: 'en-US',
   supportedLanguages: [
     'en-US',
